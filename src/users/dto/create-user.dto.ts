@@ -9,7 +9,12 @@ import {
   IsEnum,
   Max,
 } from 'class-validator';
-import { GenderEnum } from 'src/constants/common';
+
+enum GenderEnum {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+}
+
 export class CreateUserDto {
   @Prop({ required: true })
   @IsString()
