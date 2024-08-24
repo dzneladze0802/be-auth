@@ -48,6 +48,30 @@ export class UsersService {
     }
   }
 
+  async getUserInfo(id: string): Promise<{}> {
+    try {
+      const user = await this.usersModel.findById(id);
+
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      return {
+        statusCode: HttpStatus.OK,
+        message: 'User retrieved successfully',
+        user: user.toObject(),
+      };
+    } catch (error) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.BAD_REQUEST,
+          message: error.message,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
   async deleteUser(
     id: string,
   ): Promise<{ statusCode: HttpStatus; message: string }> {

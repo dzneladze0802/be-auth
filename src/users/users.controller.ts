@@ -6,6 +6,7 @@ import {
   UseGuards,
   Request,
   Patch,
+  Get,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 
@@ -26,6 +27,12 @@ export class UsersController {
   @Delete()
   async delete(@Request() req: any) {
     return await this.usersService.deleteUser(req.user.sub);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get()
+  async get(@Request() req: any) {
+    return await this.usersService.getUserInfo(req.user.sub);
   }
 
   @UseGuards(AuthGuard)
